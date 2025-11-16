@@ -1,0 +1,6 @@
+@TryBenchMark_HostAddress = http://localhost:5272
+
+GET {{TryBenchMark_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
