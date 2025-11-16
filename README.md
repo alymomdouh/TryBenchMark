@@ -6,4 +6,4 @@
 ## 2- [How to Use BenchmarkDotNet: 6 Simple Performance-Boosting Tips to Get Started](https://www.codeproject.com/articles/How-to-Use-BenchmarkDotNet-6-Simple-Performance-Bo#aioseo-tip-1-installing-and-setting-up-benchmarkdotnet)
 
 
-
+## 3-[Benchmarking and Profiling Code](https://www.youtube.com/playlist?list=PLzATctVhnsgjqprZfgnQA_h2lEe-ohcCK)
