@@ -1,9 +1,12 @@
 ﻿using BenchmarkDotNet.Attributes;
+using Microsoft.VSDiagnostics;
 
 namespace TryBenchMark.services
 {
-    [MemoryDiagnoser] 
-    [HtmlExporter]
+    [MemoryDiagnoser]
+    //[HtmlExporter]
+    [CPUUsageDiagnoser]
+
     public class BenchMarkService : IBenchMarkService
     {
 
@@ -47,7 +50,9 @@ namespace TryBenchMark.services
         }
         #endregion
 
-        [Benchmark]
+
+        #region ForEach
+       // [Benchmark]
         public List<OrderAggregate> ForEach_Loop()
         {
             var orderAggregates = new List<OrderAggregate>();
@@ -63,9 +68,11 @@ namespace TryBenchMark.services
             }
             return orderAggregates;
         }
+        #endregion
 
 
-        [Benchmark]
+        #region Select
+       // [Benchmark]
         public List<OrderAggregate> Select_Lookup()
         {
             return _orders
@@ -81,8 +88,11 @@ namespace TryBenchMark.services
               })
               .ToList();
         }
+        #endregion
 
-        [Benchmark]
+
+        #region Join
+       // [Benchmark]
         public List<OrderAggregate> Join()
         {
             return _orders.Join(
@@ -97,8 +107,12 @@ namespace TryBenchMark.services
               })
               .ToList();
         }
+        #endregion
 
-        [Benchmark]
+
+
+        #region  Query_Join
+       // [Benchmark]
         public List<OrderAggregate> Query_Join()
         {
             return (from order in _orders
@@ -110,8 +124,10 @@ namespace TryBenchMark.services
                         Lines = lines
                     }).ToList();
         }
+        #endregion
 
-        [Benchmark]
+        #region Dict_Created
+       // [Benchmark]
         public List<OrderAggregate> Dict_Created()
         {
             var orderDict = _orderLines.ToDictionary(k => k.OrderId);
@@ -128,8 +144,10 @@ namespace TryBenchMark.services
               })
               .ToList();
         }
-
-        [Benchmark]
+        #endregion
+          
+        #region Dict_Exist
+        //[Benchmark]
         public List<OrderAggregate> Dict_Exist()
         {
             return _orders
@@ -145,9 +163,11 @@ namespace TryBenchMark.services
               })
               .ToList();
         }
+        #endregion
 
 
-        [Benchmark]
+        #region Manual
+       // [Benchmark]
         public List<OrderAggregate> Manual()
         {
             var line = new Dictionary<int, OrderLines>(_orderLines.Length);
@@ -169,7 +189,35 @@ namespace TryBenchMark.services
             }
             return orderAggregates;
         }
+        #endregion
 
+
+        //[Benchmark]
+        [ArgumentsSource(nameof(Data))]
+        public int ArrayIndexOf(int[] array, int value)
+           => Array.IndexOf(array, value);
+
+        [Benchmark]
+        [ArgumentsSource(nameof(Data))]
+        public int ManualIndexOf(int[] array, int value)
+        {
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] == value)
+                    return i;
+
+            return -1;
+        }
+
+        public IEnumerable<object[]> Data()
+        {
+            yield return new object[] { new int[] { 1, 2, 3 }, 4 }; 
+           // yield return new object[] { Enumerable.Range(0, 100).ToArray(), 4 };
+           // yield return new object[] { Enumerable.Range(0, 100).ToArray(), 101 };
+        }
+
+
+
+        #region classes 
         public class Order
         {
             public int Id { get; set; }
@@ -188,6 +236,8 @@ namespace TryBenchMark.services
             public string Number { get; set; }
             public OrderLines Lines { get; set; }
         }
+        #endregion
+
 
 
         //Most of the times, LINQ will be a bit slower because it introduces overhead.
