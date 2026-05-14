@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>testBenchMark.BenchMark-20251116-105616</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet v0.15.6, Windows 11 (10.0.26100.6899/24H2/2024Update/HudsonValley)
+Intel Core i7-9850H CPU 2.60GHz (Max: 2.59GHz), 1 CPU, 12 logical and 6 physical cores
+.NET SDK 9.0.306
+  [Host]     : .NET 8.0.21 (8.0.21, 8.0.2125.47513), X64 RyuJIT x86-64-v3
+  DefaultJob : .NET 8.0.21 (8.0.21, 8.0.2125.47513), X64 RyuJIT x86-64-v3
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method </th><th>ListSize</th><th>Mean  </th><th>Error</th><th>StdDev</th><th>Median</th><th>Gen0</th><th>Gen1</th><th>Gen2</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>For_Loop</td><td>10000</td><td>331,236.7 &mu;s</td><td>6,458.98 &mu;s</td><td>11,312.39 &mu;s</td><td>326,041.1 &mu;s</td><td>-</td><td>-</td><td>-</td><td>1818.8 KB</td>
+</tr><tr><td>ForEach_Loop</td><td>10000</td><td>262,554.8 &mu;s</td><td>5,249.41 &mu;s</td><td>7,694.51 &mu;s</td><td>261,879.5 &mu;s</td><td>-</td><td>-</td><td>-</td><td>1818.8 KB</td>
+</tr><tr><td>Select_Lookup</td><td>10000</td><td>319,610.4 &mu;s</td><td>6,368.25 &mu;s</td><td>7,333.69 &mu;s</td><td>319,415.2 &mu;s</td><td>-</td><td>-</td><td>-</td><td>1640.79 KB</td>
+</tr><tr><td>Join</td><td>10000</td><td>2,395.0 &mu;s</td><td>47.53 &mu;s</td><td>66.63 &mu;s</td><td>2,398.6 &mu;s</td><td>261.7188</td><td>179.6875</td><td>82.0313</td><td>1762.73 KB</td>
+</tr><tr><td>Query_Join</td><td>10000</td><td>2,378.8 &mu;s</td><td>47.39 &mu;s</td><td>85.45 &mu;s</td><td>2,367.6 &mu;s</td><td>261.7188</td><td>179.6875</td><td>82.0313</td><td>1762.73 KB</td>
+</tr><tr><td>Dict_Created</td><td>10000</td><td>387.8 &mu;s</td><td>3.79 &mu;s</td><td>3.36 &mu;s</td><td>387.3 &mu;s</td><td>114.7461</td><td>76.6602</td><td>76.6602</td><td>745.35 KB</td>
+</tr><tr><td>Dict_Exist</td><td>10000</td><td>168.2 &mu;s</td><td>2.26 &mu;s</td><td>1.89 &mu;s</td><td>168.0 &mu;s</td><td>76.4160</td><td>38.0859</td><td>-</td><td>468.91 KB</td>
+</tr><tr><td>Manual</td><td>10000</td><td>410.9 &mu;s</td><td>6.11 &mu;s</td><td>5.42 &mu;s</td><td>410.8 &mu;s</td><td>114.7461</td><td>76.6602</td><td>76.6602</td><td>745.21 KB</td>
+</tr></tbody></table>
+</body>
+</html>
