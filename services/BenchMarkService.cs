@@ -5,7 +5,17 @@ namespace TryBenchMark.services
 {
     [MemoryDiagnoser]
     //[HtmlExporter]
-    [CPUUsageDiagnoser]
+    [CPUUsageDiagnoser] 
+    [MarkdownExporter]
+    [HtmlExporter]
+
+    [PlainExporter]
+    [RPlotExporter]
+
+    [ShortRunJob]
+    [LongRunJob]
+    [VeryLongRunJob]
+    [SimpleJob]
 
     public class BenchMarkService : IBenchMarkService
     {
@@ -48,11 +58,12 @@ namespace TryBenchMark.services
             }
             return orderAggregates;
         }
+         
         #endregion
 
 
         #region ForEach
-       // [Benchmark]
+        // [Benchmark]
         public List<OrderAggregate> ForEach_Loop()
         {
             var orderAggregates = new List<OrderAggregate>();
